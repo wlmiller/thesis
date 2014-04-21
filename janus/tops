@@ -1,0 +1,13 @@
+#!/bin/bash
+
+for i in *.png; do
+	j=`echo $i | cut -d "." -f 1`
+	convert $i $j.ps
+	echo $j
+done
+
+for i in *.pdf; do
+	j=`echo $i | cut -d "." -f 1`
+	convert $i $j.ps
+	echo $j
+done

@@ -1,0 +1,140 @@
+%%%%%%%%%%%%%%%%
+% Ph.D. thesis %
+%%%%%%%%%%%%%%%%
+
+%\documentclass[12pt,openright,twoside,letterpaper,onecolumn]{report} %% USE THIS FOR DOUBLE SIDED
+\documentclass[12pt,openright,oneside,letterpaper,onecolumn]{report}  %% USE THIS FOR SINGLE SIDED
+
+\includeonly{
+	header,
+	ack,
+	intro,
+	janus/janus,
+	aspherical,
+	2dsoft/2dsoft,
+	brush/brush,
+	pixel/pixel,
+	conclusions
+}
+
+\newcommand{\comment}[1]{}
+
+\include{header}
+
+\begin{document}
+
+% For the first pages we do not have numbering 
+\pagestyle{empty}
+
+\thesistitlepage
+\thesiscopyrightpage
+
+\thesisabstract
+
+% In the "roman-numbered" section of the thesis, we have numbers at the bottom
+% and we have to reduce the textheight of the text to make space for the number
+
+\pagenumbering{roman}
+\pagestyle{plain}
+
+\setlength{\footskip}{0.5in}
+
+\setcounter{tocdepth}{2}
+\renewcommand{\contentsname}{Table of Contents}
+\tableofcontents
+\cleardoublepage
+
+\listoffigures
+\cleardoublepage
+
+%\listoftables 
+%\cleardoublepage
+
+%%%
+%%% Acknowledgments
+%%%
+\include{ack}
+\cleardoublepage
+
+%%%
+%%% Dedication page
+%%%
+\thispagestyle{plain}
+\strut \vfill
+\centerline{\Large 
+\textit{For my family}
+}
+\vfill \strut
+\cleardoublepage
+
+%\draft   % Generates a draft version in single-space
+
+%%%
+%%% BODY
+%%%
+\pagestyle{headings}
+\pagenumbering{arabic}
+
+%
+% In the "arabic" section of the thesis, we do not have numbers at  the
+% bottom and we want to use the full length of the page to avoid vbox
+% underfulls. We use the fancyheaders package to adapt the headers
+% according to the  Columbia requirements.
+%
+\setlength{\textheight}{8.5in}
+\setlength{\footskip}{0in}
+
+% We change the pagestyle 
+\fancypagestyle{plain} {%
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE,LO]{\textsl \leftmark}
+\renewcommand{\headrulewidth}{0pt}
+}
+\pagestyle{plain}
+
+%\chapter{Introduction}
+\label{section:intro}
+\include{intro}
+
+%\part{Title of Part}
+%\chapter{Hierarchical Self-Assembly of Asymmetric Janus Particles}
+\label{sec:corpus}
+\include{janus/janus}
+
+%\part{Crystallization of Hard Aspherical Particles}
+%\label{sec:corpus}
+%\chapter{Phase Behavior of Hard Aspherical Particles}
+\include{aspherical}
+
+%\chapter{Two-Dimensional Packing of Soft Particles and the Soft Generalized Thomson Problem}
+\include{2dsoft/2dsoft}
+
+%\chapter{Free energy of alternating two-component polymer brushes on cylindrical templates}
+\include{brush/brush}
+
+%\chapter{Exploiting Classical Nucleation Theory for Reverse Self-Assembly}
+\include{pixel/pixel}
+
+%\part{Conclusions}
+%\chapter{Conclusions}
+%\label{sec:conclusions}
+%\include{conclusions}
+
+%%%
+%%% Appendices
+%%%
+%\part{Appendices}
+%\appendix
+%\include{sample-appendix}
+%\include{sample-appendix}
+
+%%%
+%%% Bibliography
+%%%
+%\part{Bibliography}
+\addcontentsline{toc}{chapter}{References}
+\bibliography{thesis}
+\bibliographystyle{apsrev4-1} 
+
+\end{document}

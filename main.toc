@@ -1,0 +1,46 @@
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Soft matter physics}{1}{section.1.1}
+\contentsline {section}{\numberline {1.2}Self-organization}{2}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}Classical nucleation theory}{3}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}Self-assembly and the critical micellar concentration}{8}{subsection.1.2.2}
+\contentsline {section}{\numberline {1.3}Exploring ``anisotropy space''}{11}{section.1.3}
+\contentsline {section}{\numberline {1.4}Frequently-used numerical methods}{12}{section.1.4}
+\contentsline {subsection}{\numberline {1.4.1}Measuring crystalline order using spherical harmonics: $\mathaccentV {bar}016{\bf q}_l$}{13}{subsection.1.4.1}
+\contentsline {subsection}{\numberline {1.4.2}Calculating free energies: thermodynamic integration}{14}{subsection.1.4.2}
+\contentsline {section}{\numberline {1.5}Organization of this dissertation}{16}{section.1.5}
+\contentsline {chapter}{\numberline {2}Self-assembly of asymmetric Janus particles}{18}{chapter.2}
+\contentsline {section}{\numberline {2.1}Introduction}{18}{section.2.1}
+\contentsline {section}{\numberline {2.2}Simulation details}{20}{section.2.2}
+\contentsline {section}{\numberline {2.3}Structure formation}{22}{section.2.3}
+\contentsline {section}{\numberline {2.4}Self-assembly pathways}{23}{section.2.4}
+\contentsline {section}{\numberline {2.5}Conclusions}{34}{section.2.5}
+\contentsline {chapter}{\numberline {3}Phase behavior of hard aspherical particles}{36}{chapter.3}
+\contentsline {section}{\numberline {3.1}Introduction}{36}{section.3.1}
+\contentsline {section}{\numberline {3.2}A model of hard aspherical particles}{37}{section.3.2}
+\contentsline {section}{\numberline {3.3}Shape-polydisperse systems}{40}{section.3.3}
+\contentsline {section}{\numberline {3.4}Monodisperse systems: coexistence pressures}{45}{section.3.4}
+\contentsline {section}{\numberline {3.5}Monodisperse systems: predicting crystallization}{48}{section.3.5}
+\contentsline {section}{\numberline {3.6}The character of crystals of aspherical particles}{51}{section.3.6}
+\contentsline {section}{\numberline {3.7}Conclusions}{54}{section.3.7}
+\contentsline {chapter}{\numberline {4}Two-dimensional packing of soft particles on planes and spheres}{56}{chapter.4}
+\contentsline {section}{\numberline {4.1}Introduction}{56}{section.4.1}
+\contentsline {section}{\numberline {4.2}Simulation details}{59}{section.4.2}
+\contentsline {section}{\numberline {4.3}Soft particles in planar geometries}{63}{section.4.3}
+\contentsline {section}{\numberline {4.4}Soft particles on spheres: the soft generalized Thomson problem}{67}{section.4.4}
+\contentsline {section}{\numberline {4.5}Polymers at high density: shortfalls of the Hertzian model}{73}{section.4.5}
+\contentsline {section}{\numberline {4.6}Conclusions}{74}{section.4.6}
+\contentsline {chapter}{\numberline {5}Free energy of alternating two-component polymer brushes on cylindrical templates}{77}{chapter.5}
+\contentsline {section}{\numberline {5.1}Introduction}{77}{section.5.1}
+\contentsline {section}{\numberline {5.2}Simulation details}{79}{section.5.2}
+\contentsline {section}{\numberline {5.3}One-component systems: $N_2 = 0$}{82}{section.5.3}
+\contentsline {section}{\numberline {5.4}Two-component systems: $N_2 \not =0$}{89}{section.5.4}
+\contentsline {section}{\numberline {5.5}Conclusions}{93}{section.5.5}
+\contentsline {chapter}{\numberline {6}Exploiting classical nucleation theory for reverse self-assembly}{95}{chapter.6}
+\contentsline {section}{\numberline {6.1}Introduction}{95}{section.6.1}
+\contentsline {section}{\numberline {6.2}Sampling the interaction shape $\Omega $}{100}{section.6.2}
+\contentsline {section}{\numberline {6.3}Sampling the interaction strength $E$}{101}{section.6.3}
+\contentsline {section}{\numberline {6.4}Numerical tests}{102}{section.6.4}
+\contentsline {section}{\numberline {6.5}Limitations}{105}{section.6.5}
+\contentsline {section}{\numberline {6.6}Beyond the Kern-Frenkel model}{109}{section.6.6}
+\contentsline {section}{\numberline {6.7}Conclusions}{112}{section.6.7}
+\contentsline {chapter}{References}{113}{section.6.7}

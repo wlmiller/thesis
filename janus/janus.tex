@@ -1,0 +1,318 @@
+\chapter{Self-assembly of asymmetric Janus particles}
+\label{chap:janus}
+\section{Introduction}
+Spontaneous assembly of components into large ordered aggregates is a ubiquitous phenomenon in nature, and is observed across all length scales. Aggregation of proteins into functional nanomachines~\cite{Alberts}, formation of viral capsids~\cite{Watson,Klug}, packing of phospholipids into biological membranes~\cite{Sackmann} and assembly of colloidal particles into macroscopic  crystals~\cite{Subramanian} are just a few manifestations of this fundamental process. Because of advances in particle synthesis~\cite{DeVries,Schnablegger,Hong,Weller,Hobbie}, it is now possible to produce colloidal particles that are anisotropic both in shape and surface chemistry, thus providing an unlimited variety of building blocks that can spontaneously assemble into an unprecedented number of structures holding promise for the development of materials with novel functional, mechanical, and optical properties.
+
+\comment{Although the generic features of particle aggregation can be described, at least phenomenologically, in terms of simple thermodynamic arguments~\cite{Israelachvili,Zhang,Leckband,Nagarajan}, the details of the process are far from being understood. 
+In fact, for self-assembly to take place, a very delicate balance between entropic and energetic contributions, coupled to a precise geometric character of the components, must be satisfied. In general, self-assembly is not to be expected unless a careful design of the building blocks has been performed beforehand,
+and this has inspired a large body of work dedicated to gain insight into how the geometry of the interparticle interactions and the shape of the particles themselves  determine the dynamical pathway and structure they aggregate into.  The ultimate goal is to be able to gather a sufficient understanding of the forward self-assembly process to then be able to develop tools that will allow us to tailor interparticle interactions to target desired structures. With this in mind, there is a clear necessity  to explore a new dimension in the classical temperature/concentration phase diagrams: the geometry of the interactions (see reference~\cite{glotzer} for a recent perspective on the subject and a review of the relevant literature.)}
+
+Janus particles are spherical colloidal particles the surfaces of which have one hydrophobic and one hydrophilic hemisphere.
+In aqueous solution, the effect of this surface anisotropy is to introduce an attraction between hydrophobic hemispheres of neighboring particles and a simple hard-sphere repulsion between the hydrophilic ones.
+Janus particles are important because they represent what is probably the simplest model for the study of the role of surface anisotropy in colloidal aggregation. 
+
+The self-assembly pathway of Janus particles has been described in some detail~\cite{Hong2} both experimentally and numerically.  
+What was found is a rich behavior in terms of both the dynamics of self-assembly, and the final structure of the aggregates.
+Specifically, by tuning the repulsion between the hydrophilic hemispheres, one can drive the system into two distinct phases: one in which particles form a gas of small clusters composed of four to thirteen particles, and another, at large salt concentration (screening Coulombic interactions), in which particles organize into long, branched, worm-like structures formed by cooperative fusion of the small clusters.  
+Such particles are a particular type of a wider class of patchy particles, the self-assembly of a wide variety of which has been studied previously~\cite{glotzer,sciortino}.
+
+Inspired by these experimental results, in this paper we go one step further and explore the dynamics and structure formation of anisotropic amphiphatic particles.
+While the dividing surface  between hydrophobic and hydrophilic regions in Janus particles is set at the equator, herein particles in which this boundary is located at an arbitrary latitude on the particle's surface are considered, and the self-assembly of these particles, as a function of the size of the hydrophobic region, is systematically studied.
+We thus explore a key ``anisotropy dimension'' (as discussed in Section~\ref{sec:anisotropy}) as related to the self-assembly of these particles.
+
+This system is quite interesting because one can easily predict the formation of a wealth of different structures  as a function of the location of the dividing surface. 
+For instance, we know that when the hydrophobic  region covers a very small area, particles  can only assemble into dumbbells (pairs of particles with hydrophobic patches pointing toward each other). 
+We know that when the dividing surface is placed to slightly larger values, so that more particles can share the same hydrophobic surface, particles condense into small stable  clusters.
+We also know the structures resulting from self-assembly of Janus particles, and of course, in the limit  of full coverage, we recover an isotropic potential which is known to lead to the formation of a fcc crystal. 
+
+Using this simple system we can systematically study the formation of aggregates whose structure ranges from zero dimensions (dumbbells and meso-particles) to three dimensions (fcc crystals), and we can analyze how  the specificity of the local interparticle interactions correlates to the final self-assembled structure and its dynamics.
+
+
+\section{Simulation details}
+The amphiphilic character of the particles studied herein is modeled via an interaction potential that depends on both the separation between particle surfaces and the angle between particle axes, so that a precise shape and extent of the interaction may be defined.  
+Our choice of the interaction potential is inspired by the model introduced in~\cite{Hong2}, which has been used to analyze actual experimental data of Janus Particles.
+
+The potential presented in~\cite{Hong2} was specifically tailored to describe the physical properties of Janus particles at different salt concentrations, $\rho_s$.
+At low and intermediate salt concentrations,  the repulsion between the charged hemispheres constrains  particles to interact head-on, with angular deviations that depend in a nontrivial way on $\rho_s$.
+However, the more interesting structure formation (worm-like clusters) appears at large salt concentrations, where the role of electrostatic interactions becomes negligible. 
+In this limit, particles can freely rotate, once in contact, within the boundaries of the hydrophobic regions.  
+These regions can therefore be appropriately described by a short-ranged, isotropic attractive potential that acts within the boundaries of that region. 
+Similarly, the hydrophilic region is well-characterized by a simple short-ranged repulsive interaction. 
+
+Because we desire to study the dynamics of self-assembly, molecular dynamics (MD) simulations were used.
+MD simulations require smooth potentials (ensuring finite forces), and thus simple square-well potentials are not amenable to this type of simulation -- the potential used are essentially smoother versions of these simple square-well potentials.
+
+The potential used in our paper reflects the phenomenological behavior described above and has the following form:
+\begin{equation}
+	V(r,\theta_1,\theta_2) = V_{\rm rep}(r) + V_{\rm att}(r)\phi(\theta_1)\phi(\theta_2)\,,
+\end{equation}
+where $r$ is the distance between particles, $\theta_1$ is the angle between the axis of particle 1 and the axis between particle centers, and $\theta_2$ is the analogous angle for particle 2.  
+$V_{\rm rep}(r)$ is a symmetric repulsive interaction that accounts for the particle excluded volume, and has the form of a shifted-truncated  Lennard-Jones potential:
+\begin{equation}
+	V_{\rm rep}(r) = \begin{cases} 4\epsilon_0 \left[ (\frac{\sigma}{r})^{12} - (\frac{\sigma}{r})^{6} +\frac{1}{4}\right] & r \leq 2^{\frac{1}{6}}\sigma 
+			\\ 0 & r > 2^{\frac{1}{6}}\sigma \end{cases}\,.
+\end{equation}
+
+$V_{\rm att}(r)$ accounts for the attraction between the hydrophobic \emph{surfaces} on the particles.
+If $r_s = |r - \sigma |$ is the distance between the particle surfaces,
+\begin{equation}
+V_{\rm att}(r) = 4 \epsilon\Biggl[\left(\frac{\sigma/2}{r_s+\sigma/2\times2^{1/6}}\right)^{12}
+\left.-2\left(\frac{\sigma/2}{r_s+\sigma/2\times2^{1/6}}\right)^6\right] \,,
+\end{equation}
+and it extends up to $r=1.5\sigma$. Finally,
+$\phi\left(\theta\right)$ is a smooth step function that modulates the angular dependence of the potential, and 
+is equal to 1 within the region $\theta \leq \theta_{\rm max}$ and decays  to 
+zero following the expression $\cos^2\left(\pi\left[\frac{\theta-\theta_{\rm max}}{2\theta_{\rm tail}}\right]\right)$ at the tail
+of the angular range, i.e when $\theta_{\rm max}\leq\theta\leq\theta_{\rm max}+\theta_{\textrm{tail}}$ 
+(with $\theta_{\rm tail}=10^{\circ}$). This particular value of $\theta_{\textrm{tail}}$ has been selected to generate a sufficiently smooth potential at the Janus interface to allow MD simulation with reasonable time steps.
+See Figure~\ref{fig:phi} for an illustration of $\phi\left(\theta\right)$.
+\begin{equation}
+	\phi\left(\theta\right) = \begin{cases} 
+		1 & \theta < \theta_{\textrm{max}} \\ 
+		\cos^2\left(\pi\left[\frac{\theta-\theta_{\textrm{max}}}{2\theta_{\textrm{tail}}}\right]\right) & \theta_{\textrm{max}} \leq \theta \leq \theta_{\textrm{max}}+\theta_{\textrm{tail}} \\ 
+		0 & \textrm{otherwise} 
+	\end{cases}
+\end{equation}
+
+\begin{figure}
+	\begin{center}\includegraphics[width=0.6\textwidth,clip]{janus/phiwithimage}\end{center}
+	\caption[Angular dependence of the interparticle potential]{Sketch of the angular dependence of the inter-particle potential $\phi\left(\theta\right)$.  The dark side represents the hydrophobic region and the light side represents the hydrophilic.}\label{fig:phi}
+\end{figure}
+The parameters set in our model are compatible with colloidal particles of size 200--400 nm in aqueous solution kept at a salt concentration sufficiently large to screen the electrostatic repulsion between the hydrophilic regions of any two particles~\cite{Hong2}.
+
+The system is evolved using molecular dynamics simulations with a Langevin thermostat at constant room temperature, $T$, in a cubic box with periodic boundary conditions.
+Our system contains $N=10^3$ particles kept at a constant volume fraction $\phi=0.01$.  
+We have chosen this concentration because it is comparable with those used in experimental studies on Janus particles~\cite{Hong2}, so that our work could have a grounding experimental reference that our results could be compared to for $\theta_{\rm max}\simeq 90^{\circ}$.
+Each simulation runs for  a minimum of $10^7$ steps with a time step $\delta t=0.001$. 
+All quantities in this chapter (and throughout the rest of this dissertation) are expressed in standard dimensionless units.
+
+\section{Structure formation}
+Our goal is to understand how particles condense into stable three-dimensional aggregates via the process of self-assembly, and how the specificity of the  geometry of the interaction is reflected in the final structure.
+Figure~\ref{fig:patchsize} reports one of the main results of our simulations.  
+It shows a diagram indicating the lines in $\theta_{\textrm{max}}$-$\varepsilon$ space separating the different self-assembled structures obtained, with a typical resolution of one degree for $\theta_{\rm max}$, and 0.1$k_{\rm B}T$ for the binding energy. 
+
+\begin{figure}
+	\begin{center}
+	\subfloat{
+       \includegraphics[width=3.28in,clip]{janus/phases2}
+       \put(-150,50){\bf{gas}}
+       \put(-180,110){\bf{\subref{fig:meso}}}
+       \put(-170,150){\bf{\subref{fig:patch90}}}
+       \put(-140,135){\bf{\subref{fig:patch95}}}
+       \put(-105,160){\bf{\subref{fig:patch100}}}
+       \put(-106,163){\vector(-1,0){10}}
+       \put(-105,120){\bf{\subref{fig:patch105}}}
+       \put(-60,120){\bf{\subref{fig:patch110}}}
+       \put(-22,130){\bf{\subref{fig:patch180}}}
+   }
+  
+   \setcounter{subfigure}{0}
+   \subfloat[]{
+       \includegraphics[width=1.23in,clip]{janus/meso}\label{fig:meso}
+   }
+   \subfloat[]{
+	   \includegraphics[width=1.23in,clip]{janus/90}\label{fig:patch90}
+   }
+   \subfloat[]{
+       \includegraphics[width=1.23in,clip]{janus/95}\label{fig:patch95}
+   }
+   \subfloat[]{\includegraphics[width=1.23in,clip]{janus/100}\label{fig:patch100}
+   }
+   
+   \subfloat[]{\includegraphics[width=1.23in,clip]{janus/105}\label{fig:patch105}
+   }
+   \subfloat[]{\includegraphics[width=1.23in,clip]{janus/115}\label{fig:patch110}
+   }
+   \subfloat[]{\includegraphics[width=1.23in,clip]{janus/180}\label{fig:patch180}
+   }
+   \end{center}
+   \caption[Phase diagram for amphiphilic colloidal particles]{\label{fig:patchsize}Self-assembly diagram of amphiphilic colloidal particles as a function of binding energy 
+   $\varepsilon$ and size of  hydrophobic region  $\theta_{\rm max} $. Region~\subref{fig:meso} is populated by small micelle-like clusters containing
+   four to thirteen particles. Region~\subref{fig:patch90} contains branched  worm-like aggregates. In region~\subref{fig:patch95} we find self-connected worm-like aggregates.
+   Region~\subref{fig:patch100} delimits flat hexagonal bilayers. In region~\subref{fig:patch105} we find faceted hollow cages. Region~\subref{fig:patch110} is populated by fluid amorphous 
+   aggregates. Finally, in region~\subref{fig:patch180} we find large clusters with fcc order.}
+\end{figure} 
+
+As expected, a rich variety of structures arises depending on the position of the dividing surface $\theta_{\rm max}$, and particles' binding energy, $\varepsilon$. 
+Notice that, consistent with numerical simulations on self-assembly of viral capsids~\cite{chandler} and chaperonins~\cite{geissler}, intermediate ordered  aggregates are extremely sensitive to the size of the hydrophobic region and self-assembly occurs in a very narrow region.
+
+At low binding energy the system is in a gas state.
+For small values of $\theta_{\rm max}$ and moderate values of $\varepsilon$ (Figure~\ref{fig:meso}) particles aggregate into small  clusters of 4 to 13 particles (mesoparticles)  {including icosahedral structures like those seen in \cite{wilber}}.
+For $\theta_{\rm max} \sim 90^{\circ}$, self-assembly yields worm-like extended structures (Figure~\ref{fig:patch90}), as has been observed previously for Janus spheres~\cite{Hong2}. 
+As the angular location of dividing surface between the hydrophobic and hydrophilic regions region increases from $90^{\circ}$ to $180^{\circ}$  we find, in order of appearance,  self-connected worm-like structures (Figure~\ref{fig:patch95}), flat-crystalline bilayers  (Figure~\ref{fig:patch100}), faceted hollow cages (Figure~\ref{fig:patch105}) (similar to structures seen in the self-assembly of cone-shaped particles~\cite{glotzer6,glotzer3}, yet not restricted to specific magic numbers of particles), amorphous fluid  blobs (Figure~\ref{fig:patch110}), and finally fcc crystals (Figure~\ref{fig:patch180}).
+
+\section{Self-assembly pathways}\label{sec:Ostwald}
+
+Apart from the possible relevance of phases~\subref{fig:patch100} and~\subref{fig:patch105} for practical applications, we want to point out that none of these structures arises following a  simple particle-by-particle growth mechanism, but rather by  two-to-three step hierarchical self-assembly.
+The first step typically involves the formation of   {more- or less-structured} mesoparticles (depending on $\theta_{\rm max}$). 
+Next, small clusters organize into either  extended worm-like aggregates, which  then coalesce or deform to produce the final structure,  or into larger fluid clusters that, once beyond some threshold size, spontaneously organize into structured aggregates.
+
+The dynamical pathway leading to structures in region~\subref{fig:patch90} is detailed in reference~\cite{Hong2}, but in short, these worm-like structures form by the successive fusion of oligomers from trimers to heptamers; the individual particles reorient and rearrange so that they can fit together in a lock-and-key fashion to maintain five-fold rings with hydrophobic regions pointed into the interior of the worm.
+
+It is of particular interest to discuss in some detail the dynamical pathway of structure formation relative to phases~\subref{fig:patch95}, \subref{fig:patch100}, and~\subref{fig:patch105}  as they all form via a complex three-step mechanism.
+Surprisingly, the common precursor  to all of them is the worm-like structure stable at $\theta_{\rm max}\simeq 90^{\circ}$.
+Self-connected worm-like aggregates  are a consequence of the improved flexibility of the  worm-like structures. As $\theta_{\rm max}$ increases, so does the ability of particles to rotate about their axes. 
+The net result is that the branching ends of the clusters bend back upon themselves and begin to connect, thus forming topologically nontrivial aggregates.
+
+To quantify the statistical difference between the aggregates found in regions~\subref{fig:patch90} and~\subref{fig:patch95},we measure their average radius of gyration 
+\begin{equation}R_{\rm G}=\left ( \frac{1}{N_c}\sum_{i=1}^{N_c} \left<({\bf{r}}_i-{\bf{r}}_{\rm cm})^2\right> \right )^{1/2} \,,\end{equation}
+where $N_c$ is the number of particles in the cluster, ${\bf{r}}_i$ is the position of particle $i$, and ${\bf{r}}_{\textrm cm}$ is the position of the center of mass of the cluster,
+as a function of cluster size. 
+
+Results are shown in Figure~\ref{gyration}, and clearly indicate that when $\theta_{\rm max}$ is increased from region~\subref{fig:patch90} to~\subref{fig:patch95}, the typical aggregate becomes more compact, showing a significantly smaller exponential dependence on the number of particles.
+The limited statistics for large clusters prevent us from making any meaningful estimate of the chains' size exponent.
+However, note that a perfectly linear chain would show an exponent of $1$ and a perfectly spherical aggregate would show an exponent of $\frac{1}{2}$.
+Thus, the decreasing exponential dependence indicates a transition from ``linear-like'' chains towards more ``cluster-like'' geometry.
+\begin{figure}
+	\begin{center}\includegraphics[width=0.6\textwidth]{janus/rg}\end{center}
+		\caption[Radius of gyration vs. aggregate size]{Radius of gyration as a function of aggregate size $N$ for worm-like clusters in region~\subref{fig:patch90} and~\subref{fig:patch95} of Figure~\ref{fig:patchsize}. The lines are guides to the eye.}
+		\label{gyration}
+
+\end{figure}
+
+We also measure the angular probability distribution function, $P(\cos(\alpha))$, between neighboring particles in  clusters containing at least 50 particles. 
+Here $\alpha$ is defined as the angle between the particle axes; $\alpha = 0$ corresponds to particles with their patches pointing in the same direction, and $\alpha = \pi$ corresponds to particles pointing in opposite directions (which would be the case, for example, in two particles in a dumbbell configuration).
+
+Figure~\ref{fig:p_of_alpha} shows  $P(\cos(\alpha))$ in regions~\subref{fig:patch90}, \subref{fig:patch95}, and~\subref{fig:patch100}.
+$P(\cos(\alpha))$ shows a clear double peaked shape in region~\subref{fig:patch100}, indicating that most neighboring particles face either in the same direction (as would particles in a single monolayer sheet) or in the opposite direction (as would particles in the opposite monolayer of a bilayer structure), where the aggregates assume a planar bilayer configuration.
+
+The more intriguing difference, however, is between region~\subref{fig:patch90} and~\subref{fig:patch95}, highlighted in the insert of the figure. 
+Region~\subref{fig:patch90} is characterized by a peak at $\cos(\alpha)\sim -1$, and less distinguishable peaks at $\cos(\alpha)\sim \pm 0.74$ and  $\cos(\alpha)\sim -0.5$; overall there is a large probability for all possible orientations.
+These data suggest that  branched worm-like aggregates have a roughly circular cross-section with particles oriented in a disordered fashion, but for a slight preference for a few selected angles (remnants of the mesoparticle structures from which they self-assembled), and an antiparallel neighbor opposite to most particles.
+
+In contrast, region~\subref{fig:patch95} is characterized by a more distinct double-peaked function, with each peak close to $\pm 1$. 
+This is consistent with a cross section that has flattened with respect to structures in region~\subref{fig:patch90}, and indicates that each branch of the aggregate is acquiring bilayer-like features.
+The dashed line separating regions~\subref{fig:patch90} and~\subref{fig:patch95} shows where in the diagram the strings acquire sufficient flexibility to begin to form complex self-connected aggregates.   
+\begin{figure}
+	\begin{center}\includegraphics[width=0.6\textwidth]{janus/p_of_alpha}\end{center}
+	\caption[Angular probability distribution function between neighboring particles]{Angular probability distribution function, $P(\cos(\alpha))$, between neighboring particles in  aggregates 	
+	 containing at least 50 particles in region~\subref{fig:patch90} ($\theta_{\rm max}=91^{\circ}$), 
+	 \subref{fig:patch95} ($\theta_{\rm max}=95^{\circ}$), and~\subref{fig:patch100} ($\theta_{\rm max}=101^{\circ}$), 
+	 of the phase diagram. The insert highlights $P(cos(\alpha))$ 
+	 in regions~\subref{fig:patch95} and~\subref{fig:patch100}. The data are averaged over 10 different clusters of each kind.}
+	\label{fig:p_of_alpha}
+\end{figure}
+
+This observation is quite interesting when related to the dynamical pathway leading to phase~\subref{fig:patch100}.
+Bilayers are formed by either coalescence of co-planar loops, as shown in Figure~\ref{fig:loops}, or by branch alignment.
+This transition  occurs at $\theta_{\rm max}\simeq 110^\circ$, and it is driven by  the large energy gain attained by the aggregates when each particle surrounds itself with the suddenly increased number of neighbors compatible with the enlarged hydrophobic region; $110 ^\circ$ is roughly the value of $\theta_{\rm max}$ at which neighboring particles in a flat monolayer have a sufficiently favorable free energy to stabilize that geometry.
+This transition is quite sharp and represents a beautiful example of how a very small perturbation of the geometry of the local interaction can lead to completely different macroscopic structures.
+
+\begin{figure}
+\begin{center}
+	\renewcommand{\thesubfigure}{\arabic{subfigure}}
+	\subfloat[]{\includegraphics[width=0.45\textwidth]{janus/data1b}}
+	\subfloat[]{\includegraphics[width=0.45\textwidth]{janus/data2}}
+
+	\subfloat[]{\includegraphics[width=0.45\textwidth]{janus/data3}}
+\end{center}
+		\caption[Snapshots of bilayer formation]{Sequence of three snapshots from our simulations showing the mechanism of  bilayer formation via coalescence of three coplanar loops.}
+		\label{fig:loops}
+\end{figure}
+
+Finally, formation of finite-sized, faceted capsids does not occur by self-assembly of  misoriented, disjoined bilayers, but via a mechanism which, once again,  involves multiple steps. 
+As we increase the size of the particles' hydrophobic region, short worm-like clusters, which are now very flexible (owing to the highly permissive large hydrophobic patches), immediately fold onto themselves to form small, amorphous fluid blobs. 
+We find that these blobs tend to remain fluid-like, whereas larger ones morph into faceted  cages via a mechanism similar to that described for the formation of bilayers.
+Fusion of fluid blobs, as illustrated in Figure~\ref{fig:snapshots}, is the main mechanism through which large blobs, which eventually turn into  faceted cages, are generated.
+
+The dashed line between regions~\subref{fig:patch100} and~\subref{fig:patch105} indicates the onset of cage formation; however, a non-negligible number of planar aggregates are found to coexist with the faceted cages in region~\subref{fig:patch105}. 
+It is worth stressing that these faceted cages can be considered as colloidal analogs of the lipid vesicles discussed previously; they are hollow,  their inner walls are hydrophilic, and one could in principle consider using them as possible drug carriers, with edges and corners presenting convenient locations for outer surface tagging.
+Furthermore, while a systematic study of their thermodynamics has not been performed, it would be expected to have features consistent with the calculation of the critical micellar concentration given in Section~\ref{sec:cmc}.
+
+\begin{figure}
+	\begin{center}
+	\renewcommand{\thesubfigure}{\arabic{subfigure}}
+	\subfloat[]{
+		\includegraphics[width=0.45\textwidth]{janus/shota}\label{fig:shota}
+	}
+	\subfloat[]{
+		\includegraphics[width=0.45\textwidth]{janus/shotc}\label{fig:shotc}
+	}
+
+	\subfloat[]{
+		\includegraphics[width=0.45\textwidth]{janus/shot1}\label{fig:shot1}
+	}
+	\subfloat[]{
+		\includegraphics[width=0.45\textwidth]{janus/shot2}\label{fig:shot2}
+	}	
+
+	\subfloat[]{\includegraphics[width=0.45\textwidth]{janus/shot5}\label{fig:shot5}
+	}
+	\subfloat[]{\includegraphics[width=0.45\textwidth]{janus/shot6}\label{fig:shot6}
+	}\end{center}
+	\caption[Snapshots of cage formation]{Sequence of six snapshots (\subref{fig:shota}$\rightarrow$\subref{fig:shot6}) from our simulations showing faceted cage formation
+	via fast folding of short worm-like clusters (\subref{fig:shota}-\subref{fig:shotc}) and subsequent fusion of fluid blobs (\subref{fig:shot1}-\subref{fig:shot6}).}\label{fig:snapshots}
+\end{figure}
+
+A statistical analysis of our data correlating  size and structure for non-planar aggregates in region~\subref{fig:patch105} indicates a clear preference for large clusters to develop into  faceted hollow cages (see Figure~\ref{fig:facetvsnon}). 
+What sets the onset cluster size for this transformation is a complex compromise between the geometric constraints imposed by the interparticle potential; the energy gain to close-pack particles in a bilayer, which grows with the number of particles $N$; the energy cost for sides and corners, which have on average fewer neighbors than in a fluid state and have an energy cost which grows as $ N^{1/2}$ and $N^{0}$, respectively; and finally the entropy loss due to particle ordering.
+Clearly, as $N$ increases, at sufficiently large binding energy, planar configurations become the most stable, and this results in surface faceting.
+
+\begin{figure}
+	\begin{center}\includegraphics[width=0.6\textwidth]{janus/facetvsnon}\end{center}
+	\caption[Probability distribution function of cluster size]{Probability distribution function $P(n)$ as a function of cluster size $n$ for fluid and faceted aggregates
+	in region~\subref{fig:patch105} of the phase diagram.}\label{fig:facetvsnon}
+\end{figure}
+
+When $\theta_{\rm max}$ increases to even larger values, the geometric constraints imposed by the interparticle potential become less restrictive, and  planar bilayer configurations
+become less stable. 
+Phase~\subref{fig:patch110} is characterized by fluid, amorphous blobs which remain fluid at all sizes. 
+Large clusters, formed by the smooth fusion of smaller ones, tend to contain smaller sub-clusters in their interior. 
+This is the first sign indicating that aggregates begin to acquire a three-dimensional character, which eventually leads to the formation of clusters with fcc  order, as inner and outer clusters begin to interact with each other.
+
+The location of the fluid to fcc transition is at $\theta_{\rm max}\simeq 135^{\circ}$, and was found by performing a structural analysis of the aggregates. 
+Using the order parameters defined in Section~\ref{sec:orderparamdesc}, we measure the degree of crystallinity of the self-assembled aggregates.
+\comment{
+	Following~\cite{auer,tenwolde}, we identified particles whose local orientation is compatible to fcc ordering via a local bond order parameter based on spherical harmonics.
+Given a particle  $i$, we consider
+	\begin{equation}
+		Q_{6m}(i)=  \frac{1}{N_b(i)}    \sum_{j=1}^{N_b(i)} Y_{6m}({\bf r}_{ij})\,,
+	\end{equation}
+where $j$ runs over the $N_b(i)$ neighbors of  particle $i$, from which a rotationally invariant order parameter correlating the orientation of neighboring particles $i$ and $j$ can be defined as
+	\begin{equation}
+		{\bf q}_6(i)\cdot {\bf q}_6(j)= \sum_{m=-6}^6 Q_{6m}(i) \cdot Q^*_{6m}(j)
+	\end{equation}\label{orderparamdesc}
+}
+Figure~\ref{fig:q6q6} shows the degree of crystallinity $\left<O\right>$ as a function of  $\theta_{\rm max}$ across the angular range $\theta_{\rm max}\in[120:180]$.
+$\left<O\right>$ is obtained by first averaging ${\bf q}_6(i)\cdot {\bf q}_6(j)$ over the neighbors of each particle $i$, and then by taking the average over all crystalline particles in a cluster. 
+Clearly, once crystalline particles are formed, their degree of order in a fcc crystal structure is independent of $\theta_{\rm max}$.
+\begin{figure}
+	\begin{center}\includegraphics[width=0.6\textwidth]{janus/q6q6}\end{center}
+	\caption[Degree of crystallinity of aggregates vs. hydrophobic area]{Degree of crystallinity of self-assembled aggregates as a function of hydrophobic area $\theta_{\rm max}$.}
+	\label{fig:q6q6}
+\end{figure}
+
+The explanation of this behavior is purely geometrical.
+In fact, for sufficiently large $\theta_{\rm max}$, the hydrophilic area on each particle becomes so small that can be positioned among the 12 particles' contact points resulting from an fcc crystal without affecting its structure.
+Simple geometric considerations suggest that the onset value should occur for an angular span on the order of $150^{\circ}$.
+This value is compatible with our result $\theta_{\rm max}\simeq 135^{\circ}$, especially considering the extra tail of $10^{\circ}$ in our definition of the potential angular dependence. A careful analysis of the model for decreasing values of $\theta_{\rm tail}$, not shown here, does indeed result in a systematic shift of the crystallization onset $\theta_{\rm max}$ to larger values.
+
+\begin{figure}
+	\begin{center}\includegraphics[width=0.8\textwidth]{janus/nucleation}\end{center}
+	\caption[Aggregate size vs. time for $\theta_{\rm max}=160^{\circ}$]{\label{fig:nucleation} Linear-Log plot of the typical aggregate size $n$ as a function of time. The dotted line shows the total number of particles in the aggregate, while the continuous line shows how many of those particles are tagged as crystal-like. These data were collected at $\theta_{\rm max}=160^{\circ}$.}
+\end{figure}
+
+Finally, it is important to point out that, once again, the pathway leading to the formation of crystalline aggregates occurs in a two-step fashion.
+Particles first condense into a large, fluid aggregate, and then crystallize from within the cluster via a standard nucleation process.
+Figure~\ref{fig:nucleation} shows in the same plot the aggregate size and the number of crystalline particles in the aggregate versus time for a system with $\theta_{\textrm{max}} = 160^{\circ}$.
+Clearly, crystal formation begins long after the aggregate is formed, and the large fluctuations in the initial stages of crystal growth show the typical signature of crystal nucleation. 
+These results are compatible with nucleation studies of isotropic colloidal particles interacting via a short-range attractive potential first observed in~\cite{tenwolde}, and highlight the crucial role played by metastable phases in the dynamics of crystal growth.
+In fact, we believe that this is the overarching physics behind the rich dynamical phenomenology we find throughout this paper. 
+
+Self-assembly proceeds, as predicted by Ostwald's step rule in the context of crystal nucleation~\cite{ostwald}, in a stepwise fashion that accounts for the  complex free energy landscape containing  multiple metastable states.
+Ostwald's step rule states that, as a general rule, when multiple crystalline phases are possible, it is not the most, but the least stable form which crystallizes first -- equilibration may then proceed in steps to the most stable configuration.
+
+Although we have not looked at the stability of the different phases found in our simulations, planar and vesicular structures are also observed in the study of the equilibrium properties of a model system similar to ours~\cite{SciortinoX}.
+It is also worth mentioning that we expect the precise location of the phase boundaries to be somewhat sensitive to the particular choice of the angular potential. 
+Unfortunately, this is very hard to characterize experimentally near the Janus interface and there is not a unique way of modeling that boundary.
+Our phase diagram is therefore intended to serve mostly as a guide for experimentalists, and not to model any specific category of amphiphilic particle.
+
+\section{Conclusions}
+In this chapter we used molecular dynamics simulations to study the self-assembly pathways of spherical  amphiphilic colloidal particles.
+We uncovered a wealth of different aggregates whose structures  span the three-dimensional spectrum.
+Specifically, depending on the size ratio between the hydrophilic and  hydrophobic regions, particles self-assemble into small micellar clusters, worm-like structures, planar bilayers, faceted and fluid cages, and finally fcc crystals.
+We described  the hierarchical self-assembly pathway leading to most of these structures and discussed their connection to the geometry of local interparticle interactions.
+Finally, we made precise predictions  for the formation of hollow amphiphilic cages.
+
+Although the morphology  of some of our aggregates can be predicted by simple geometric considerations, the dynamics leading to their formation is far less trivial, and may play a crucial role in the efficiency of the self-assembly process.
+We believe that, apart from trivial cases, any procedure attempting to design interparticle interactions to target specific structures could greatly benefit from taking into account the dynamics of structure formation in the design process.

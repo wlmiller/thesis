@@ -1,0 +1,110 @@
+\chapter{Phase behavior of hard aspherical particles}
+\label{chap:aspherical}
+
+\section{Introduction}
+Problems of packing and space tiling have fascinated scientists for a very long time.
+Kepler's 1611 essay {\it ``Strena Seu de Die Nive Sexangula''} (``A New Year's Gift of Hexagonal Snow'')~\cite{Kepler} is probably one of the earliest publications on the subject.
+Herein he conjectured that cubic close packing and hexagonal close packing are the most efficient ways to fill a space using equally sized spheres.
+It wasn't until 1998 that Kepler's conjecture was finally announced to be proven (with a 99\% degree of confidence) by Thomas Hales~\cite{Hales}.
+
+Most of the work on particle crystallization and self-assembly in the last decade has focused on monodisperse~\cite{frenkel1} or polydisperse~\cite{frenkel2,zaccarelli} systems of spherical or regularly-shaped particles (see also~\cite{glotzer,chandler,geissler,cacciuto,torquato,frenkel,glotzer2,glotzer3,glotzer4,esco,weitz} and references therein).
+Nevertheless, there are several important cases in which the shape of the single components cannot be tailored at will; however, an efficient packing, or an understanding of the physical properties of these densely compressed systems, is highly desirable.
+Two examples of outstanding problems in this category are the storage of grains~\cite{deGennes} and protein crystallization~\cite{rosenberger}.
+Both examples can be ideally thought of as two different aspects of the problem of understanding the role of shape in particle packing.
+In the first case the goal is to efficiently pack a system of randomly-shaped polydisperse grains; 
+in the second, the aim is to crystallize non-spherical, yet equally shaped monodisperse components. 
+In this chapter, both of these cases will be addressed. 
+
+An understanding of the relationship between the ability of particles to form macroscopically-ordered crystal structures and their shape is sought.
+Specifically, we analyze how random perturbations from the ideal spherical shape affect the crystallizability of a densely packed system of indistinguishable hard particles.
+Although a few papers have  dealt with the thermodynamic behavior of soft/deformable particles as a model for polymer brushes or polymer-coated colloids (\cite{pamies,capone,richter,bozorgui} and references therein), this is the first study where shape distortions, frozen onto the particles, are explicitly and systematically accounted for.
+
+Crystallization in these systems occurs because of the free volume gain associated with the crystal structure, as discussed in Section~\ref{sec:CNT}.
+However, even in simple systems, precise calculations of the free energies involved in these transitions are very difficult. 
+In complicated systems such as those discussed in this chapter, it is implausible to perform these calculations rigorously, and since the transition depends on small differences between large free energy values, computer simulations are the tool of choice to study and analyze this important process in detail.
+
+\comment{The problem of crystal formation is poorly understood.
+From a thermodynamic standpoint, classical nucleation theory informs us that a crystal can only be formed via a barrier crossing event.
+The free energy gain to form a nucleus of a stable crystalline structure in a supersaturated solution must balance out the free energy cost associated with the formation of an interface between the solid and the fluid parent phase.
+The Gibbs free energy cost, $\Delta G$, associated with this event has a strong dependence on the interfacial free energy, $\gamma$: ${\Delta}G \propto \frac{\gamma^3}{(\rho\Delta\mu)^2}$,  where $\rho$ and $\Delta\mu$ are the density and the chemical potential difference between solid and fluid phase, respectively.
+As $\gamma$ is very hard to extract from experiments, computer simulations are the tool of choice to study and analyze this important process in detail.}
+
+\section{A model of hard aspherical particles}\label{sec:asphermethod}
+In this chapter, each particle is built by randomly setting the center of $N_b$ ($4 \leq N_b \leq 12$) spheres of diameter $\sigma$ inside a spherical shell of diameter  $\sigma_0<\sigma$.
+The overall volume generated from the resulting overlapping aggregate defines our new particle.
+
+Deviations from the ideal spherical shape can be conveniently controlled by varying $\sigma_0$ and $N_b$. 
+For  $\sigma_0=0$ one recovers the spherical limit, and as  $\sigma_0$ increases, particles develop larger and larger shape distortions.
+In a similar fashion, large values of $N_b$ result in a bumpy but overall isotropic particle, whereas small values of $N_b$ tend to generate very anisotropic shapes.
+
+Once a particle is built, the center of mass of this cluster of balls is determined, and the entire cluster is scaled so that its total volume equals that of a spherical particle of diameter $\sigma$, i.e. $\frac{\pi}{6}\sigma^3$.
+Any two particles $i$ and $j$ interact via a hard repulsive potential defined as
+\begin{equation}
+U_{ij}=
+\begin{cases}
+0 & {\textrm{if }} |r_s-r_t|>\sigma_R \,\,\,\,\,\,\forall s\in i \,\,,\,\, \forall t\in j \cr
+\infty &\text{otherwise}\cr
+\end{cases} \,,
+\end{equation}
+where $s$ and $t$ run over all spheres of rescaled diameter $\sigma_R$ constituting particle $i$ and particle $j$ respectively.
+Experimental realizations of colloidal particles similar to ours could be generated using the approach described in~\cite{weitz} to create uniform nonspherical particles with tunable shapes.  
+
+Figure~\ref{shapes} shows a few snapshots of particle shapes obtained for different values of $N_b$ and  $\sigma_0$.
+In Section~\ref{sec:polydisperse}, a specific $N_b$ and $\sigma_0$ will be chosen and a system will be composed of different random particles generated using the method above with those two parameters as inputs; in Sections~\ref{sec:disorderpress} and~\ref{sec:disorderyesno}, a system will be made up of identical particles from one specific outcome of the particle generation procedure.
+\begin{figure}
+	\begin{center}\includegraphics[width=0.8\textwidth]{disorder/parts2.png}\end{center}
+	\caption[Model particles for different values of $\sigma_0$ and $N_b$]{Model particles for different values of $\sigma_0$ and $N_b$ built according to the scheme described in the text.}\label{shapes}
+\end{figure}
+
+Two order parameters characterizing the degree of asphericity of a particle are useful for relating the shape of particles in a system. 
+The first is its asphericity, $A$ (as opposed to the commonly used sphericity, $S$~\cite{sphericity}), defined in terms of the surface to volume ratio of a particle $\alpha_p=\frac{A_p}{V_p}$ with respect to that of a sphere of diameter $\sigma$, $\alpha_s=\frac{6}{\sigma}$, as
+\begin{equation}
+	A = 1 - S = 1-\frac{\alpha_s}{\alpha_p} \,.
+\end{equation}
+Given our model setup, $V_p=V_s$, $A$ simplifies to 
+\begin{equation}
+	A=1-\frac{\pi\sigma^2}{A_p} \,.
+\end{equation}
+
+The surface area of a particle, $A_p$, is calculated via a simple Monte Carlo algorithm: a random point on the surface of a random one of the $N_b$ spheres is chosen, and it is determined whether it is inside any of the other spheres or not -- only points which do not lie on the inside of any other sphere are on the surface of the overall particle.
+This is repeated until the proportion of points on the surface of the particle as a fraction of all points chosen converges; using this fraction and the total surface area of all of the spheres combined, $N_b \times \pi \sigma_R^2$, the surface area of the particle can be calculated.
+ 
+The second parameter, $q$, measures the orientational symmetry  of the particle.
+It is used to describe the  asphericity of random walks~\cite{rudnick}, and it is obtained by combining invariants of the particle inertia tensor $I_{ij}$  as
+\begin{equation}
+	q=\frac{\left(R_1^2-R_2^2\right)^2 + \left(R_1^2-R_3^2\right)^2 + \left(R_2^2-R_3^2\right)^2}{2\left(R_1^2 + R_2^2 + R_3^2\right)} \,,
+\end{equation}
+where $R_1$, $R_2$, and $R_3$ are the three principal eigenvalues of the inertia tensor of the particle, that is, the three principle radii of gyration of the particle.
+
+Both parameters are defined so that they are equal to $0$ for a perfectly spherical particle, and approach $1$ for  extremely aspherical ones. 
+Note that $A$ depends intimately on the value of $\sigma_0$ used to construct the particle, whereas $q$ depends only on the angular distribution of spheres about the center of mass -- that is, it is completely independent of $\sigma_0$.
+
+It is worth briefly describing the limits of $q$, in particular, as its definition is less intuitive than that of $A$.
+As defined, the $q \rightarrow 0$ limit is a sphere; $q \simeq \frac{1}{2}$ for a thin, circular plate; and $q \rightarrow 1$ for a long, thin rod.
+
+\section{Shape-polydisperse systems}
+\label{sec:polydisperse}
+\input{polydisperse/polydisperse}
+\input{disorder/disorder}
+
+\section{Conclusions}
+
+To conclude, out data represent a first step in attempting to understand how deviations from asphericity affect the thermodynamics of crystallization of particle systems.
+Our results show  that the coexistence pressure of systems of monodisperse and shape-polydisperse particles is remarkably well-described, within the limits described above,   
+ by a simple first order Taylor expansion in terms of $Aq$, $\frac{p^* - p^*_{HS}}{p^*_{HS}} = \alpha Aq + ...$
+
+Apart from the details concerning the dynamics of these systems, our results show that, for aspherical particles,
+shape and crystallizability can be directly and easily correlated when particles are characterized in terms of their
+asphericity via $q$ and $A$. Our data suggest precise limits for the manufacture of nanocomponents expected to crystallize, which should be experimentally testable,
+and may have important implications for the problem of protein crystallization. 
+The latter system is clearly far more complex  than the one explored here,
+since not only shape, but also interparticle direct interactions (which are not necessarily isotropic), 
+are responsible for the organization of proteins into large macroscopic crystals. Nevertheless, it would be
+interesting to systematically explore to what extent  a similar correlation exists in this case.   
+
+Finally, a further avenue of study, and one that is vital to truly understanding phenomena surrounding crystallization of these particles, has to do with the free volume available in a crystal.
+As discussed in Section~\ref{sec:CNT}, the chemical potential difference between the fluid and crystalline phases, which is a vital consideration in the crystallization, is determined, in purely repulsive systems such as these, by the free volume available per particle in the crystal versus that available to the ``jammed'' fluid at the same density.
+
+This is not a trivial quantity to compute in complicated systems such as these, and will be very sensitive to details about how, precisely, it is calculated.
+For example, it might be necessary to attempt to calculate an ``accessible'' volume of each particle, in analogy to solvent-accessible volumes in proteins, which accounts for the fact that a narrow, deep cleft, for example, should have no bearing on the way in which two particles of the same size interact with each other.
+However, this would be a vital step toward a complete theoretical understanding of the problem, and work in this direction is currently underway.
