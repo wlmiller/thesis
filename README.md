@@ -20,4 +20,4 @@ In Chapter 5, we study the free energy of two-component polymer brush systems in
 Finally, in Chapter 6, we approach the reverse self-assembly problem. That is, we describe an algorithm for answering the reverse (and much more difficult) question, “Given a specific desired target self-assembled structure, what interparticle interactions will yield a system which will self-assemble into that structure?” We also describe a new model of interparticle interaction which should be able to generate interparticle interaction geometries with a high degree of flexibility.
 
 ### Reference
-Miller, William L., III. (2012)  _Self-organization in systems of anisotropic particles._ (Doctoral dissertation). [http://search.proquest.com/docview/1016092050](Available from ProQuest Dissertations and Theses). (Publication no. 3507711).
+Miller, William L., III. (2012)  _Self-organization in systems of anisotropic particles._ (Doctoral dissertation). [Available from ProQuest Dissertations and Theses](http://search.proquest.com/docview/1016092050). (Publication no. 3507711).
